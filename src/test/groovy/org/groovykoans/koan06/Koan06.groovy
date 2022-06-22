@@ -34,14 +34,20 @@ class Koan06 extends GroovyTestCase {
         // Groovy-fy the above code, using StringBuilder and with() to get the same result in Groovy
         String groovyResult
         // ------------ START EDITING HERE ----------------------
-
+groovyResult=new StringBuilder().with{
+    append("roses are #FF0000\\n")
+    append("violets are #0000FF\\n")
+    append("all my base\\n")
+    append("are belong to you\\n")
+    return it
+}
 
         // ------------ STOP EDITING HERE  ----------------------
         assert groovyResult == javaResult
     }
 
     void test02_CollectMethodOnLists() {
-        // We're often required to iterate through a whole list and and perform some sort of transformation on
+        // We're often required to iterate through a whole list and perform some sort of transformation on
         // some (or all) of the items, returning a new list. Groovy has a method just for that:
         // http://docs.groovy-lang.org/latest/html/groovy-jdk/java/lang/Object.html#collect(groovy.lang.Closure)
 
@@ -50,7 +56,7 @@ class Koan06 extends GroovyTestCase {
         def differentTypes = [1, 'String', "GString", 'a', 'Another string', 0]
         def uniqueTypes = []
         // ------------ START EDITING HERE ----------------------
-
+uniqueTypes=differentTypes.collect{it.class}.unique()
 
         // ------------ STOP EDITING HERE  ----------------------
         assert uniqueTypes == [Integer, String]

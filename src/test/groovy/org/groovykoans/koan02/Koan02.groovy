@@ -20,7 +20,8 @@ class Koan02 extends GroovyTestCase {
         def predicate2 = true
 
         // ------------ START EDITING HERE ----------------------
-
+predicate2=false
+        predicate1=true
 
         // ------------ STOP EDITING HERE  ----------------------
 
@@ -34,7 +35,8 @@ class Koan02 extends GroovyTestCase {
         List<String> list = ['item']
 
         // ------------ START EDITING HERE ----------------------
-
+        map=[a:23]
+         list = []
 
         // ------------ STOP EDITING HERE  ----------------------
 
@@ -48,8 +50,8 @@ class Koan02 extends GroovyTestCase {
         String s2 = ''
 
         // ------------ START EDITING HERE ----------------------
-
-
+s2= "Iperu"
+s1=''
         // ------------ STOP EDITING HERE  ----------------------
 
         // Note how we can use String expressions inside an if statement.  It is automatically converted into a boolean.
@@ -65,7 +67,7 @@ class Koan02 extends GroovyTestCase {
 
         // Remove (or change) the offending integer to continue
         // ------------ START EDITING HERE ----------------------
-
+balance.remove(3)
 
         // ------------ STOP EDITING HERE  ----------------------
 
@@ -73,9 +75,10 @@ class Koan02 extends GroovyTestCase {
         // For an easier way to do this in Groovy, check out the any() method at
         // http://docs.groovy-lang.org/latest/html/groovy-jdk/java/lang/Object.html#any(groovy.lang.Closure)
         def result = true
-        for (int i : balance) {
-            result = result && i.asBoolean()
-        }
+       result= balance.any{it>0} //using any() to iterate through
+//        for (int i : balance) {
+//            result = result && i.asBoolean()
+//        }
         assert result
     }
 
