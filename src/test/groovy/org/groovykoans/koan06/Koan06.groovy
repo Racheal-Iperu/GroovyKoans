@@ -70,7 +70,11 @@ uniqueTypes=differentTypes.collect{it.class}.unique()
         // under the src directory
         int count = 0
         // ------------ START EDITING HERE ----------------------
+ new File('src').eachFileRecurse{ file ->
+     if(!file.isDirectory() && file.text.contains('Lorem'))
+            count++
 
+        }
 
         // ------------ STOP EDITING HERE  ----------------------
         assert count == 3
@@ -82,7 +86,12 @@ uniqueTypes=differentTypes.collect{it.class}.unique()
         // range objects, store all the prime numbers between 200 and 250 in the target variable
         def primesBetween200And250 = []
         // ------------ START EDITING HERE ----------------------
+range = 200..250
+range.findAll{value->
+    if(value)
+        primesBetween200And250 << value
 
+}
 
         // ------------ STOP EDITING HERE  ----------------------
         assert primesBetween200And250 == [211, 223, 227, 229, 233, 239, 241]
