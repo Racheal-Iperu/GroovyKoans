@@ -43,13 +43,14 @@ class Koan09 extends GroovyTestCase {
     void test02_GroovyInterceptors() {
         // Groovy's dynamic nature allows you to add custom interceptors to all method invocations. This is very similar
         // to AOP and can prove to be very useful, if used with caution.
-        // Read here: http://mrhaki.blogspot.com/2009/11/groovy-goodness-intercept-methods-with.html
+        // Read here: http://mrhaki.blogspot.com/2009/11/groovy-goodness-intercept-methodProxyMetaClass.getInstance(Hello)s-with.html
 
         // sensitiveService.nukeCity(username, city) allows you to nuke cities. But only if you're an 'admin'.
         // Using the NukeInterceptor, make sure that only admin is allowed to run this service.
         def proxy
         // ------------ START EDITING HERE ----------------------
-
+        proxy= ProxyMetaClass.getInstance(SensitiveService)
+        proxy.interceptor = new NukeInterceptor()
 
         // ------------ STOP EDITING HERE  ----------------------
 
@@ -164,7 +165,20 @@ expectedThisClassName = 'org.groovykoans.koan09.Koan09'
         //   - otherwise, return the number itself (as a String)
 
         // ------------ START EDITING HERE ----------------------
-
+        Integer.metaClass.fizzBuzz = {
+            def result = ''
+            if(delegate%3 == 0){
+                result+='Fizz'
+            }
+            if (delegate%5 == 0){
+                result+='Buzz'
+            }
+//            if (delegate%3 == 0 && delegate%5 == 0){
+//                reult+='FizzBuzz'
+//            }
+            if (!result) result = delegate.toString()
+            result
+        }
 
         // ------------ STOP EDITING HERE  ----------------------
         def fizzBuzzes = (1..15).collect { it.fizzBuzz() }
