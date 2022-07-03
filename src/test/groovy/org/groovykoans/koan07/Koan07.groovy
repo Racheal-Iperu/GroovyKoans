@@ -151,7 +151,7 @@ patternInGroovy= ~/\d{3}([,\s])?\d{4}/
                       |In the land of submarines'''.stripMargin()
         def result
         // ------------ START EDITING HERE ----------------------
-
+        result = song.replaceAll(/\w+/) { dictionary[it] ?: it }
 
         // ------------ STOP EDITING HERE  ----------------------
 

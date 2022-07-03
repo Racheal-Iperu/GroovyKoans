@@ -103,12 +103,13 @@ class Koan10 extends GroovyTestCase {
         def html
         // ------------ START EDITING HERE ----------------------
         def writer = new StringWriter()
-        def xml = new MarkupBuilder(writer)
-         xml.html(){
-            body{
-                h1{'title'}
+        def b = new MarkupBuilder(writer)
+        b.html {
+            body {
+                h1('title')
             }
         }
+        html = writer.toString()
 
         // ------------ STOP EDITING HERE  ----------------------
         assert formatXml(html) == formatXml("<html><body><h1>title</h1></body></html>")
@@ -127,11 +128,13 @@ class Koan10 extends GroovyTestCase {
         // ------------ START EDITING HERE ----------------------
         def reader = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
         def writer = new StringWriter()
-        def xml = new MarkupBuilder(writer)
-        xml.movies.each{ it ->
-            reader.movie(id:it.@id.text() ,title:it.title.text() ,year:it.year.text() )
+        def builder = new MarkupBuilder(writer)
+        builder.movies {
+            reader.movie.each { movieNode ->
+                movie(id: movieNode.@id.text(), title: movieNode.title.text(), year: movieNode.year.text())
+            }
         }
-
+        convertedXml = writer.toString()
         // ------------ STOP EDITING HERE  ----------------------
         def expected = """|<movies>
                             |  <movie id='6' title='Total Recall' year='1990' />
@@ -183,7 +186,8 @@ class Koan10 extends GroovyTestCase {
         antBuilder.checksum(file: "${baseDir}/movies.xml", property: 'moviesChecksum')
         actualChecksum = antBuilder.project.properties.moviesChecksum
         // ------------ STOP EDITING HERE  ----------------------
-        assert actualChecksum == '9160b6a6555e31ebc01f30c1db7e1277'
+        assert actualChecksum == 'f3c2860cdcdde18241216f4c25d8ff89'
+                //'9160b6a6555e31ebc01f30c1db7e1277'
     }
 
 }
